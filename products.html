@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>产品中心 - 闽晨石材有限公司</title>
+<link href="./css/tailwind.min.css" rel="stylesheet"/>
+<link href="test_images/logo.png" rel="icon" type="image/png"/>
+<style>
+    html { scroll-behavior: smooth; }
+    .main-title {
+  white-space: nowrap;
+      font-size: 2.2rem; font-weight: 900; letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 16px rgba(80, 120, 255, 0.12);
+      border-radius: 10px; padding: 4px 16px;
+      transition: box-shadow 0.3s; box-shadow: 0 2px 12px rgba(80, 120, 255, 0.08);
+    }
+    .main-title:hover { box-shadow: 0 4px 32px rgba(80, 120, 255, 0.18); }
+    .section-title {
+      font-size: 2rem; font-weight: 800; letter-spacing: 0.06em; color: #4f8cff;
+      text-shadow: 0 2px 8px rgba(80, 120, 255, 0.10); margin-bottom: 0.5em;
+    }
+    .nav-btn {
+      display: inline-block; padding: 0.5rem 1.2rem; margin: 0 0.2rem;
+      font-weight: 600; font-size: 1rem; color: #4f8cff; background: #fff;
+      border: 2px solid; border-image: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      border-image-slice: 1; 
+      /* 移除圆角 */
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(80, 120, 255, 0.06);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff; background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      /* 统一阴影效果 */
+      box-shadow: 0 6px 20px rgba(80, 120, 255, 0.25); 
+      border-color: transparent;
+    }
+    .category-btn {
+      min-width: 120px; text-align: center; margin-bottom: 0.5rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.08rem; color: #4f8cff; background: #fff;
+      border: 2px solid #a084ee; border-radius: 2rem;
+      box-shadow: 0 2px 12px rgba(80, 120, 255, 0.08);
+      transition: all 0.22s; cursor: pointer; position: relative; overflow: hidden;
+      padding: 0.6rem 1.5rem 0.6rem 1.2rem; margin-right: 0.5rem; margin-left: 0.5rem; margin-top: 0.2rem; margin-bottom: 0.2rem; letter-spacing: 0.04em;
+    }
+    .category-btn.selected, .category-btn:hover {
+      background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      color: #fff; border-color: #4f8cff;
+      box-shadow: 0 4px 18px rgba(80, 120, 255, 0.18);
+      transform: translateY(-2px) scale(1.04);
+    }
+    .category-btn .cat-icon {
+      font-size: 1.2em; margin-right: 0.5em; opacity: 0.7;
+    }
+    .product-card {
+      cursor: pointer; transition: box-shadow 0.2s, transform 0.2s;
+      background: #fff; box-shadow: 0 2px 12px rgba(80,120,255,0.08);
+      border-radius: 1rem; overflow: hidden;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px rgba(80,120,255,0.18);
+      transform: translateY(-4px) scale(1.03);
+    }
+    .modal-bg { position: fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.45); z-index:1000; display:flex; align-items:center; justify-content:center; }
+    .modal-content { background: #fff; border-radius: 1.2rem; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(80,120,255,0.18); padding: 2rem; position: relative; }
+    .modal-close { position: absolute; right: 1.2rem; top: 1.2rem; font-size: 2rem; color: #888; cursor: pointer; transition: color 0.2s; }
+    .modal-close:hover { color: #4f8cff; }
+    @media (max-width: 900px) {
+      .nav-btn, .category-btn { margin: 0.2rem 0.1rem; font-size: 0.98rem; padding: 0.45rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .main-title {
+  white-space: nowrap; font-size: 1.4rem; padding: 2px 8px; }
+      .section-title { font-size: 1.1rem; }
+      .nav-btn, .category-btn { font-size: 0.92rem; padding: 0.38rem 0.7rem; }
+      .modal-content { padding: 1rem; }
+    }
+  </style>
+<script>
+    if (window.location.hash === "#contact") {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      window.scrollTo(0, 0);
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<header class="bg-white shadow sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4"><div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-3 md:space-y-0">
+<div class="flex items-center space-x-3">
+<img alt="闽晨石材logo" class="h-10 w-auto" src="site_images/logo.jpg"/>
+<h1 class="main-title">产品中心</h1>
+</div>
+<nav class="w-full flex flex-wrap justify-center gap-2 mt-4 md:mt-0 md:justify-end">
+<a class="nav-btn" href="index.html">首页</a>
+<a class="nav-btn active" href="products.html">产品中心</a>
+<a class="nav-btn" href="finished.html">成品展示</a>
+<a class="nav-btn" href="cases.html">工程案例</a>
+<a class="nav-btn" href="news.html">新闻资讯</a>
+<a class="nav-btn" href="about.html">关于我们</a>
+<a class="nav-btn" href="contact.html">联系我们</a>
+</nav>
+</div>
+</div>
+</header>
+<div class="py-12 px-4 max-w-6xl mx-auto">
+<!-- 分类导航 -->
+<div class="flex flex-wrap justify-center gap-4 mb-12" id="categoryNav"></div>
+<!-- 产品内容区 -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="productList"></div>
+<!-- 产品详情弹窗 -->
+<div id="productModal" style="display:none;"></div>
+<!-- 分类和产品数据、交互脚本 -->
+<script>
+    // 分类与产品数据
+    const categories = [
+      { key: 'aluhoney', name: '铝蜂窝石材复合板', icon: '🟦' },
+      { key: 'shimiaofh', name: '石材饰面保温复合板', icon: '🟪' },
+      { key: 'fangshi', name: '仿石饰面保温复合板', icon: '🟫' },
+      { key: 'huagangyan', name: '花岗岩', icon: '🪨' },
+      { key: 'xian', name: '线条', icon: '➖' },
+      { key: 'shuidao', name: '水刀拼花', icon: '🌸' },
+      { key: 'beijingqiang', name: '背景墙', icon: '🖼️' },
+      { key: 'daban', name: '大板类', icon: '📏' },
+      { key: 'video', name: '产品视频', icon: '🎬' },
+    ];
+    // 示例产品数据（每类可补充更多）
+    const products = {
+      aluhoney: [
+        { name: '1', desc: '铝蜂窝石材复合板', images: ['001/01.jpg'] },
+        { name: '2', desc: '铝蜂窝石材复合板', images: ['001/02.jpg'] },
+        { name: '3', desc: '铝蜂窝石材复合板', images: ['001/03.jpg'] },
+        { name: '4', desc: '铝蜂窝石材复合板', images: ['001/04.jpg'] },
+        { name: '5', desc: '铝蜂窝石材复合板', images: ['001/05.jpg'] },
+        { name: '6', desc: '铝蜂窝石材复合板', images: ['001/06.jpg'] },
+        { name: '7', desc: '铝蜂窝石材复合板', images: ['001/07.jpg'] },
+        { name: '8', desc: '铝蜂窝石材复合板', images: ['001/08.jpg'] },
+      ],
+      shimiaofh: [
+        { name: '1', desc: '石材饰面保温复合板', images: ['002/01.jpg'] },
+        { name: '2', desc: '石材饰面保温复合板', images: ['002/02.jpg'] },
+      ],
+      fangshi: [
+        { name: '1', desc: '仿石饰面保温复合板', images: ['003/01.jpg'] },
+        { name: '2', desc: '仿石饰面保温复合板', images: ['003/02.jpg'] },
+        { name: '3', desc: '仿石饰面保温复合板', images: ['003/03.jpg'] },
+        { name: '4', desc: '仿石饰面保温复合板', images: ['003/04.jpg'] },
+        { name: '5', desc: '仿石饰面保温复合板', images: ['003/05.jpg'] },
+        { name: '6', desc: '仿石饰面保温复合板', images: ['003/06.jpg'] },
+      ],
+      huagangyan: [
+        { name: '山东白麻', desc: '花岗岩', images: ['004/01.jpg'] },
+        { name: '海南G654', desc: '花岗岩', images: ['004/02.jpg'] },
+        { name: '章丘黑', desc: '花岗岩', images: ['004/03.jpg'] },
+      ],
+      xian: [
+        { name: '1', desc: '线条', images: ['005/01.png'] },
+        { name: '2', desc: '线条', images: ['005/02.png'] },
+        { name: '3', desc: '线条', images: ['005/03.png'] },
+        { name: '4', desc: '线条', images: ['005/04.png'] },
+      ],
+      shuidao: [
+        { name: '1', desc: '水刀拼花', images: ['006/01.png'] },
+        { name: '2', desc: '水刀拼花', images: ['006/02.png'] },
+        { name: '3', desc: '水刀拼花', images: ['006/03.png'] },
+        { name: '4', desc: '水刀拼花', images: ['006/04.png'] },
+        { name: '5', desc: '水刀拼花', images: ['006/05.png'] },
+        { name: '6', desc: '水刀拼花', images: ['006/06.png'] },
+        { name: '7', desc: '水刀拼花', images: ['006/07.png'] },
+        { name: '8', desc: '水刀拼花', images: ['006/08.png'] },
+      ],
+      beijingqiang: [
+        { name: '1', desc: '背景墙', images: ['007/01.png'] },
+        { name: '2', desc: '背景墙', images: ['007/02.png'] },
+      ],
+      daban: [
+        { name: '爵士白', desc: '高品质大板石材', images: ['site_images/extra_44.jpg'] },
+        { name: '雅士白', desc: '光泽度高，纹理细腻', images: ['site_images/extra_46.jpg'] },
+        { name: '鱼肚灰', desc: '经典装饰用材', images: ['site_images/extra_47.jpg'] },
+      ],
+      video: [
+        { name: '意大利鱼肚白复合瓷砖豪宅地面', desc: '产品生产工艺展示', images: [], video: 'test_video/video1.mp4' },
+        { name: '产品展示视频 2', desc: '产品应用案例展示', images: [], video: 'testvideo/video2.mp4' },
+      ],
+    };
+    // 渲染分类导航
+    const nav = document.getElementById('categoryNav');
+    let selectedCat = categories[0].key;
+    function renderNav() {
+      nav.innerHTML = '';
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'category-btn' + (selectedCat===cat.key?' selected':'');
+        btn.innerHTML = `<span class='cat-icon'>${cat.icon||''}</span>${cat.name}`;
+        btn.onclick = () => { selectedCat=cat.key; renderNav(); renderProducts(); };
+        nav.appendChild(btn);
+      });
+    }
+    // 渲染产品列表
+    const list = document.getElementById('productList');
+    function renderProducts() {
+      list.innerHTML = '';
+      if(selectedCat==="video") {
+        (products.video||[]).forEach((p,idx) => {
+          const card = document.createElement('div');
+          card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
+          card.innerHTML = `<video class='w-full aspect-video' controls poster='site_images/video_cover${idx+1}.jpg'><source src='${p.video}' type='video/mp4'>您的浏览器不支持视频播放。</video><div class='p-4'><h4 class='text-lg font-semibold text-gray-800'>${p.name}</h4><p class='text-sm text-gray-600 mt-1 border-t pt-2'>${p.desc}</p></div>`;
+          list.appendChild(card);
+        });
+        return;
+      }
+      (products[selectedCat]||[]).forEach((p,idx) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
+        card.innerHTML = `<img src=\"${p.images[0]}\" class=\"w-full h-48 object-cover\" alt=\"${p.name}\"><div class=\"p-4\"><h4 class=\"text-lg font-semibold text-gray-800\">${p.name}</h4></div>`;
+        card.onclick = ()=>showBigImg(p.images[0]);
+        list.appendChild(card);
+      });
+    }
+    // 产品详情弹窗
+    const modal = document.getElementById('productModal');
+    function showBigImg(img) {
+      modal.style.display = 'flex';
+      modal.innerHTML = `<div class='modal-bg' style='z-index:2000;' onclick='modal.style.display="none"'><img src='${img}' style='max-width:90vw;max-height:90vh;display:block;margin:auto;border-radius:1rem;box-shadow:0 8px 32px #888;'></div>`;
+    }
+    // 初始化
+    renderNav(); renderProducts();
+    </script>
+</div>
+<footer class="bg-white py-6 border-t mt-8">
+<div class="text-center text-sm text-gray-500">
+      © 2025 福建泉州市闽晨石材有限公司 版权所有
+    </div>
+</footer>
+</body>
+</html>

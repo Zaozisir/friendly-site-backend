@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>成品展示 - 闽晨石材有限公司</title>
+<link href="./css/tailwind.min.css" rel="stylesheet"/>
+<link href="test_images/logo.png" rel="icon" type="image/png"/>
+<style>
+    html { scroll-behavior: smooth; }
+    .main-title {
+  white-space: nowrap;
+      font-size: 2.2rem; font-weight: 900; letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 16px rgba(80, 120, 255, 0.12);
+      border-radius: 10px; padding: 4px 16px;
+      transition: box-shadow 0.3s; box-shadow: 0 2px 12px rgba(80, 120, 255, 0.08);
+    }
+    .main-title:hover { box-shadow: 0 4px 32px rgba(80, 120, 255, 0.18); }
+    .section-title {
+      font-size: 2rem; font-weight: 800; letter-spacing: 0.06em; color: #4f8cff;
+      text-shadow: 0 2px 8px rgba(80, 120, 255, 0.10); margin-bottom: 0.5em;
+    }
+    .nav-btn {
+      display: inline-block; padding: 0.5rem 1.2rem; margin: 0 0.2rem;
+      font-weight: 600; font-size: 1rem; color: #4f8cff; background: #fff;
+      border: 2px solid; border-image: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      border-image-slice: 1; 
+      /* 移除圆角 */
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(80, 120, 255, 0.06);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff; background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      /* 统一阴影效果 */
+      box-shadow: 0 6px 20px rgba(80, 120, 255, 0.25); 
+      border-color: transparent;
+    }
+    .product-card { cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; }
+    .product-card:hover { box-shadow: 0 8px 32px rgba(80,120,255,0.18); transform: translateY(-4px) scale(1.03); }
+    .modal-bg { position: fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.45); z-index:1000; display:flex; align-items:center; justify-content:center; }
+    @media (max-width: 900px) {
+      .nav-btn { margin: 0.2rem 0.1rem; font-size: 0.98rem; padding: 0.45rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .main-title {
+  white-space: nowrap; font-size: 1.4rem; padding: 2px 8px; }
+      .section-title { font-size: 1.1rem; }
+      .nav-btn { font-size: 0.92rem; padding: 0.38rem 0.7rem; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<header class="bg-white shadow sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4"><div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-3 md:space-y-0">
+<div class="flex items-center space-x-3">
+<img alt="闽晨石材logo" class="h-10 w-auto" src="site_images/logo.jpg"/>
+<h1 class="main-title">成品展示</h1>
+</div>
+<nav class="w-full flex flex-wrap justify-center gap-2 mt-4 md:mt-0 md:justify-end">
+<a class="nav-btn" href="index.html">首页</a>
+<a class="nav-btn" href="products.html">产品中心</a>
+<a class="nav-btn active" href="finished.html">成品展示</a>
+<a class="nav-btn" href="cases.html">工程案例</a>
+<a class="nav-btn" href="news.html">新闻资讯</a>
+<a class="nav-btn" href="about.html">关于我们</a>
+<a class="nav-btn" href="contact.html">联系我们</a>
+</nav>
+</div>
+</div>
+</header>
+<div class="py-12 px-4 max-w-6xl mx-auto">
+<div class="flex justify-between items-center mb-8">
+<h2 class="section-title">成品展示</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
+<img alt="成品展示1" class="w-full h-64 object-cover" onclick="showBigImg('finished_images/001.jpg')" src="finished_images/001.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">成品照片1</h4>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
+<img alt="成品展示2" class="w-full h-64 object-cover" onclick="showBigImg('finished_images/002.jpg')" src="finished_images/002.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">成品照片2</h4>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
+<img alt="成品展示3" class="w-full h-64 object-cover" onclick="showBigImg('site_images/extra_47.jpg')" src="site_images/extra_47.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">成品照片3</h4>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
+<img alt="成品展示3" class="w-full h-64 object-cover" onclick="showBigImg('site_images/extra_47.jpg')" src="site_images/extra_47.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">成品照片3</h4>
+</div>
+</div>
+</div>
+<div id="productModal" style="display:none;"></div>
+<script>
+      const modal = document.getElementById('productModal');
+      function showBigImg(img) {
+        modal.style.display = 'flex';
+        modal.innerHTML = `<div class='modal-bg' style='z-index:2000;' onclick='modal.style.display="none"'><img src='${img}' style='max-width:90vw;max-height:90vh;display:block;margin:auto;border-radius:1rem;box-shadow:0 8px 32px #888;'></div>`;
+      }
+    </script>
+</div>
+<footer class="bg-white py-6 border-t mt-8">
+<div class="text-center text-sm text-gray-500">
+      © 2025 福建泉州市闽晨石材有限公司 版权所有
+    </div>
+</footer>
+</body>
+</html> 

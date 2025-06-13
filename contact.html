@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>联系我们 - 闽晨石材有限公司</title>
+<link href="./css/tailwind.min.css" rel="stylesheet"/>
+<link href="test_images/logo.png" rel="icon" type="image/png"/>
+<style>
+    html { scroll-behavior: smooth; }
+    .main-title {
+  white-space: nowrap;
+      font-size: 2.2rem; font-weight: 900; letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 16px rgba(80, 120, 255, 0.12);
+      border-radius: 10px; padding: 4px 16px;
+      transition: box-shadow 0.3s; box-shadow: 0 2px 12px rgba(80, 120, 255, 0.08);
+    }
+    .main-title:hover { box-shadow: 0 4px 32px rgba(80, 120, 255, 0.18); }
+    .section-title {
+      font-size: 2rem; font-weight: 800; letter-spacing: 0.06em; color: #4f8cff;
+      text-shadow: 0 2px 8px rgba(80, 120, 255, 0.10); margin-bottom: 0.5em;
+    }
+    .nav-btn {
+      display: inline-block; padding: 0.5rem 1.2rem; margin: 0 0.2rem;
+      font-weight: 600; font-size: 1rem; color: #4f8cff; background: #fff;
+      border: 2px solid; border-image: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      border-image-slice: 1;
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(80, 120, 255, 0.06);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff; background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      box-shadow: 0 6px 20px rgba(80, 120, 255, 0.25);
+      border-color: transparent;
+    }
+    @media (max-width: 900px) {
+      .nav-btn { margin: 0.2rem 0.1rem; font-size: 0.98rem; padding: 0.45rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .main-title {
+  white-space: nowrap; font-size: 1.4rem; padding: 2px 8px; }
+      .section-title { font-size: 1.1rem; }
+      .nav-btn { font-size: 0.92rem; padding: 0.38rem 0.7rem; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<header class="bg-white shadow sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4"><div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-3 md:space-y-0">
+<div class="flex items-center space-x-3">
+<img alt="闽晨石材logo" class="h-10 w-auto" src="site_images/logo.jpg"/>
+<h1 class="main-title">联系我们</h1>
+</div>
+<nav class="w-full flex flex-wrap justify-center gap-2 mt-4 md:mt-0 md:justify-end">
+<a class="nav-btn" href="index.html">首页</a>
+<a class="nav-btn" href="products.html">产品中心</a>
+<a class="nav-btn" href="finished.html">成品展示</a>
+<a class="nav-btn" href="cases.html">工程案例</a>
+<a class="nav-btn" href="news.html">新闻资讯</a>
+<a class="nav-btn" href="about.html">关于我们</a>
+<a class="nav-btn active" href="contact.html">联系我们</a>
+</nav>
+</div>
+</div>
+</header>
+<section class="py-12 px-4 max-w-5xl mx-auto">
+<h3 class="section-title mb-4">联系我们</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div>
+<p class="mb-2">电话：<span class="font-medium">13799863278</span></p>
+<p class="mb-2">地址：<span class="font-medium">福建省泉州市南安市水头镇苏内金雕工业园内</span></p>
+<p class="mb-2">邮箱：<span class="font-medium">1506743092@qq.com</span></p>
+<p class="mb-2">微信号：<span class="font-medium">cy2855457</span></p>
+<img alt="微信二维码" class="mt-2 rounded-lg shadow max-w-[180px]" src="contact_us/001.jpg"/>
+</div>
+<div class="flex justify-center items-center min-h-[340px]">
+<div id="map-container" style="width:100%; height:340px; min-height:340px; border-radius:12px; box-shadow:0 2px 12px #a084ee;"></div>
+</div>
+</div>
+</section>
+<footer class="bg-white py-6 border-t mt-8">
+<div class="text-center text-sm text-gray-500">
+      © 2025 福建泉州市闽晨石材有限公司 版权所有
+    </div>
+</footer>
+<script src="https://webapi.amap.com/maps?v=2.0&amp;key=a65f8af92654d3d4bbd61506b99d07b6"></script>
+<script>
+  window.onload = function () {
+    var map = new AMap.Map('map-container', {
+      center: [118.375299, 24.685764],
+      zoom: 17
+    });
+
+    var marker = new AMap.Marker({
+      position: [118.375299, 24.685764],
+      title: "闽晨石材"
+    });
+
+    map.add(marker);
+  }
+</script>
+</body>
+</html> 

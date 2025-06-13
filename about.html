@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>关于我们 - 闽晨石材有限公司</title>
+<link href="./css/tailwind.min.css" rel="stylesheet"/>
+<link href="test_images/logo.png" rel="icon" type="image/png"/>
+<style>
+    html { scroll-behavior: smooth; }
+    .main-title {
+  white-space: nowrap;
+      font-size: 2.2rem; font-weight: 900; letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 16px rgba(80, 120, 255, 0.12);
+      border-radius: 10px; padding: 4px 16px;
+      transition: box-shadow 0.3s; box-shadow: 0 2px 12px rgba(80, 120, 255, 0.08);
+    }
+    .main-title:hover { box-shadow: 0 4px 32px rgba(80, 120, 255, 0.18); }
+    .section-title {
+      font-size: 2rem; font-weight: 800; letter-spacing: 0.06em; color: #4f8cff;
+      text-shadow: 0 2px 8px rgba(80, 120, 255, 0.10); margin-bottom: 0.5em;
+    }
+    .nav-btn {
+      display: inline-block; padding: 0.5rem 1.2rem; margin: 0 0.2rem;
+      font-weight: 600; font-size: 1rem; color: #4f8cff; background: #fff;
+      border: 2px solid; border-image: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      border-image-slice: 1; 
+      /* 移除圆角 */
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(80, 120, 255, 0.06);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff; background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      /* 统一阴影效果 */
+      box-shadow: 0 6px 20px rgba(80, 120, 255, 0.25); 
+      border-color: transparent;
+    }
+    @media (max-width: 900px) {
+      .nav-btn { margin: 0.2rem 0.1rem; font-size: 0.98rem; padding: 0.45rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .main-title {
+  white-space: nowrap; font-size: 1.4rem; padding: 2px 8px; }
+      .section-title { font-size: 1.1rem; }
+      .nav-btn { font-size: 0.92rem; padding: 0.38rem 0.7rem; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<header class="bg-white shadow sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4"><div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-3 md:space-y-0">
+<div class="flex items-center space-x-3">
+<img alt="闽晨石材logo" class="h-10 w-auto" src="site_images/logo.jpg"/>
+<h1 class="main-title">关于我们</h1>
+</div>
+<nav class="w-full flex flex-wrap justify-center gap-2 mt-4 md:mt-0 md:justify-end">
+<a class="nav-btn" href="index.html">首页</a>
+<a class="nav-btn" href="products.html">产品中心</a>
+<a class="nav-btn" href="finished.html">成品展示</a>
+<a class="nav-btn" href="cases.html">工程案例</a>
+<a class="nav-btn" href="news.html">新闻资讯</a>
+<a class="nav-btn active" href="about.html">关于我们</a>
+<a class="nav-btn" href="contact.html">联系我们</a>
+</nav>
+</div>
+</div>
+</header>
+<section class="py-12 px-4 max-w-5xl mx-auto">
+<h3 class="section-title mb-8">关于我们</h3>
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+<img alt="工厂展示" class="rounded-xl shadow transform transition duration-300 hover:shadow-xl" src="site_images/extra_45.jpg"/>
+<div class="bg-white p-6 rounded-lg shadow transform transition duration-300 hover:shadow-xl">
+<p class="text-gray-700 leading-relaxed mb-4">
+          福建泉州市闽晨石材有限公司成立于2016年，位于世界石都——福建南安水头镇，占地两万余平方米，是一家集铝蜂窝复合石材、节能保温石材、瓷砖复合板、透光复合石材等产品研发、加工、销售为一体的现代化石材企业。
+        </p>
+<p class="text-gray-700 leading-relaxed mb-4">
+</p>
+<p class="text-gray-700 leading-relaxed">
+          闽晨石材始终坚持创新 与匠心服务，致力于为客户提供优质的产品、合理的设计方案与完善的售后服务，与客户共筑石业新辉煌。
+        </p>
+</div>
+</div>
+</section>
+<section class="py-12 px-4 max-w-5xl mx-auto">
+<h3 class="section-title mb-8">我们的团队</h3>
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+<img alt="团队合影" class="rounded-xl shadow transform transition duration-300 hover:shadow-xl" src="site_images/extra_34.jpg"/>
+<div class="bg-white p-6 rounded-lg shadow transform transition duration-300 hover:shadow-xl">
+<p class="text-gray-700 leading-relaxed mb-2">
+          闽晨石材拥有一支经验丰富、团结高效的专业团队，涵盖研发、生产、销售、工程服务等多个环节。
+        </p>
+<p class="text-gray-700 leading-relaxed mb-2">
+          团队成员秉承"匠心品质、用心服务"的理念，致力于为客户提供优质的产品和全方位的解决方案。
+        </p>
+<p class="text-gray-700 leading-relaxed">
+          我们相信，团队的力量是企业持续发展的核心动力。未来，闽晨石材团队将继续携手共进，与客户共创美好明天！
+        </p>
+</div>
+</div>
+</section>
+<section class="py-12 px-4 max-w-6xl mx-auto">
+<h3 class="section-title mb-6">代表合作项目</h3>
+<div class="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+<table class="min-w-full divide-y divide-gray-200 text-sm text-gray-700">
+<thead class="bg-gray-100 text-gray-800">
+<tr>
+<th class="px-4 py-3 text-left">年份</th>
+<th class="px-4 py-3 text-left">甲方及项目名称</th>
+<th class="px-4 py-3 text-left">材料名称品种</th>
+<th class="px-4 py-3 text-left">合同金额</th>
+</tr>
+</thead>
+<tbody class="bg-white divide-y divide-gray-200">
+<tr><td class="px-4 py-2">2021年</td><td class="px-4 py-2">深圳龙源精造建设集团有限公司（滨海廊桥幕墙项目）</td><td class="px-4 py-2">皇室灰、英国棕幕墙</td><td class="px-4 py-2">100万</td></tr>
+<tr><td class="px-4 py-2">2021年</td><td class="px-4 py-2">长安云连桥五区（中建三局）</td><td class="px-4 py-2">花岗岩幕墙复合铝蜂窝</td><td class="px-4 py-2">800万</td></tr>
+<tr><td class="px-4 py-2">2021年</td><td class="px-4 py-2">深圳星耀广场</td><td class="px-4 py-2">进口皇室啡花岗岩幕墙</td><td class="px-4 py-2">640万</td></tr>
+<tr><td class="px-4 py-2">2021年</td><td class="px-4 py-2">武汉米乐斯国际大酒店</td><td class="px-4 py-2">花岗岩幕墙</td><td class="px-4 py-2">680万</td></tr>
+<tr><td class="px-4 py-2">2020年</td><td class="px-4 py-2">南京绿地华侨城</td><td class="px-4 py-2">室内精装修石材</td><td class="px-4 py-2">385万</td></tr>
+<tr><td class="px-4 py-2">2020年</td><td class="px-4 py-2">江苏亿成石业有限公司（成都高新体育文化中心）</td><td class="px-4 py-2">室内大理石材墙面</td><td class="px-4 py-2">1050万</td></tr>
+<tr><td class="px-4 py-2">2020年</td><td class="px-4 py-2">重庆市中泉装饰工程有限公司（重庆堤特花园）</td><td class="px-4 py-2">内装墙面大理石</td><td class="px-4 py-2">760万</td></tr>
+<tr><td class="px-4 py-2">2020年</td><td class="px-4 py-2">莱州大恒石材有限公司（泰安琼花岛酒店）</td><td class="px-4 py-2">酒店装修石材</td><td class="px-4 py-2">630万</td></tr>
+<tr><td class="px-4 py-2">2020年</td><td class="px-4 py-2">莱州大恒石材有限公司（爱情海酒店）</td><td class="px-4 py-2">酒店装修石材</td><td class="px-4 py-2">370万</td></tr>
+<tr><td class="px-4 py-2">2019年</td><td class="px-4 py-2">深圳市澳泽新型建材有限公司（深城投中城花园（一期）幕墙工程）</td><td class="px-4 py-2">葡萄牙米黄</td><td class="px-4 py-2">450万</td></tr>
+<tr><td class="px-4 py-2">2019年</td><td class="px-4 py-2">成都汇邦装饰工程有限公司（帝景花园)</td><td class="px-4 py-2">奥特曼、莎安娜</td><td class="px-4 py-2">320万</td></tr>
+<tr><td class="px-4 py-2">2018年</td><td class="px-4 py-2">深圳市前海工程有限公司（郑州市奥林匹克体育中心）</td><td class="px-4 py-2">奥特曼、爱马仕灰等</td><td class="px-4 py-2">460万</td></tr>
+<tr><td class="px-4 py-2">2018年</td><td class="px-4 py-2">燕加隆家居建材股份有限公司（出口缅甸）</td><td class="px-4 py-2">金丝白玉</td><td class="px-4 py-2">200万</td></tr>
+<tr><td class="px-4 py-2">2018年</td><td class="px-4 py-2">上海颖信建材工程有限公司（出口香港、澳门）</td><td class="px-4 py-2">洞石铝蜂窝复合板、莎安娜铝蜂窝复合板</td><td class="px-4 py-2">150万</td></tr>
+<tr><td class="px-4 py-2">2018年</td><td class="px-4 py-2">厦门市锦磊装饰工程有限公司（南京璞越钟山）</td><td class="px-4 py-2">奥特曼、新莎安娜、蓝金沙等大理石瓷砖复合板</td><td class="px-4 py-2">1350万</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<footer class="bg-white py-6 border-t mt-8">
+<div class="text-center text-sm text-gray-500">
+      © 2025 福建泉州市闽晨石材有限公司 版权所有
+    </div>
+</footer>
+</body>
+</html>

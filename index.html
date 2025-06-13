@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>福建泉州市闽晨石材有限公司</title>
+<link href="./css/tailwind.min.css" rel="stylesheet"/>
+<link href="test_images/logo.png" rel="icon" type="image/png"/>
+<script>
+    let currentSlide = 0;
+    function showSlide(index) {
+      const slides = document.querySelectorAll('.carousel-image');
+      slides.forEach((img, i) => img.classList.toggle('hidden', i !== index));
+      currentSlide = index;
+    }
+    function nextSlide() {
+      const slides = document.querySelectorAll('.carousel-image');
+      showSlide((currentSlide + 1) % slides.length);
+    }
+    setInterval(nextSlide, 4000);
+    if (window.location.hash === "#contact") {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      window.scrollTo(0, 0);
+    }
+  </script>
+<style>
+    html {
+      scroll-behavior: smooth;
+    }
+    /* 美化LOGO旁主标题 */
+    .main-title {
+  white-space: nowrap;
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 16px rgba(80, 120, 255, 0.12);
+      border-radius: 10px;
+      padding: 4px 16px;
+      transition: box-shadow 0.3s;
+      box-shadow: 0 2px 12px rgba(80, 120, 255, 0.08);
+    }
+    .main-title:hover {
+      box-shadow: 0 4px 32px rgba(80, 120, 255, 0.18);
+    }
+    /* 轮播图中央大标题美化 */
+    .carousel-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(90deg, #fff 0%, #a084ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 6px 24px rgba(80, 120, 255, 0.18);
+      padding: 8px 24px;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(255,255,255,0.12);
+    }
+    /* 区块标题美化 */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #4f8cff;
+      text-shadow: 0 2px 8px rgba(80, 120, 255, 0.10);
+      margin-bottom: 0.5em;
+    }
+    /* 美化导航栏按钮 */
+    .nav-btn {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      margin: 0 0.2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #4f8cff;
+      background: #fff;
+      border: 2px solid;
+      border-image: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      border-image-slice: 1;
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(80, 120, 255, 0.06);
+      transition: all 0.25s;
+      position: relative;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff;
+      background: linear-gradient(90deg, #4f8cff 0%, #a084ee 100%);
+      box-shadow: 0 6px 20px rgba(80, 120, 255, 0.25);
+      border-color: transparent;
+    }
+    @media (max-width: 900px) {
+      nav.space-x-6 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        padding-top: 0.5rem;
+      }
+      .nav-btn {
+        margin: 0.2rem 0.1rem;
+        font-size: 0.98rem;
+        padding: 0.45rem 1rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .main-title {
+  white-space: nowrap;
+        font-size: 1.4rem;
+        padding: 2px 8px;
+      }
+      .carousel-title {
+        font-size: 1.3rem;
+        padding: 4px 8px;
+      }
+      .section-title {
+        font-size: 1.1rem;
+      }
+      .nav-btn {
+        font-size: 0.92rem;
+        padding: 0.38rem 0.7rem;
+      }
+    }
+  
+@media (min-width: 768px) and (max-width: 1024px) {
+  nav.w-full {
+    justify-content: center !important;
+    gap: 0.75rem !important;
+    padding-top: 0.5rem;
+  }
+  .nav-btn {
+    min-width: 120px;
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  nav.w-full {
+    justify-content: flex-end !important;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .nav-btn {
+    min-width: 120px;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .main-title {
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+@media (min-width: 768px) {
+  nav {
+    justify-content: flex-end;
+  }
+  .main-title {
+    white-space: nowrap;
+    text-align: left;
+  }
+}
+@media (max-width: 767px) {
+  nav {
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<header class="bg-white shadow sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4"><div class="flex flex-wrap md:flex-nowrap justify-between items-center"><div class="flex items-center space-x-3"><img alt="闽晨石材logo" class="h-10 w-auto" src="site_images/logo.jpg"/><h1 class="main-title">闽晨石材</h1></div><div class="flex-grow hidden md:block"></div><nav class="flex flex-wrap justify-end gap-2 w-full md:w-auto mt-4 md:mt-0">
+<a class="nav-btn" href="index.html">首页</a>
+<a class="nav-btn" href="products.html">产品中心</a>
+<a class="nav-btn" href="finished.html">成品展示</a>
+<a class="nav-btn" href="cases.html">工程案例</a>
+<a class="nav-btn" href="news.html">新闻资讯</a><a class="nav-btn" href="about.html">关于我们</a>
+<a class="nav-btn" href="contact.html">联系我们</a>
+</nav></div></div>
+</header>
+<!-- 轮播图移到最顶部 -->
+<section class="relative w-full h-64 overflow-hidden">
+<img class="carousel-image absolute inset-0 w-full h-full object-cover" src="site_images/extra_44.jpg"/>
+<img class="carousel-image absolute inset-0 w-full h-full object-cover hidden" src="site_images/extra_47.jpg"/>
+<img class="carousel-image absolute inset-0 w-full h-full object-cover hidden" src="site_images/extra_46.jpg">
+<div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+<h2 class="carousel-title">专注石材 • 匠心品质</h2>
+</div>
+</img></section>
+<!-- 产品展示预览部分 -->
+<section class="py-12 px-4 max-w-5xl mx-auto">
+<div class="flex justify-between items-center mb-8">
+<h3 class="section-title">产品展示</h3>
+<a class="nav-btn" href="products.html">查看更多 →</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="铝蜂窝石材复合板" class="w-full h-48 object-cover" src="001/01.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">铝蜂窝石材复合板</h4>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="花岗岩" class="w-full h-48 object-cover" src="004/01.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">花岗岩</h4>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="背景墙" class="w-full h-48 object-cover" src="007/01.png"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">背景墙</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- 成品展示预览部分，放到产品展示和工程案例之间，并加上类别名称 -->
+<section class="py-12 px-4 max-w-5xl mx-auto">
+<div class="flex justify-between items-center mb-8">
+<h3 class="section-title">成品展示</h3>
+<a class="nav-btn" href="finished.html">查看更多 →</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="成品展示1" class="w-full h-48 object-cover" src="finished_images/001.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">成品照片1</h4>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="成品展示2" class="w-full h-48 object-cover" src="finished_images/002.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">成品照片2</h4>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="成品展示3" class="w-full h-48 object-cover" src="site_images/extra_47.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">成品照片3</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- 工程案例预览部分 -->
+<section class="py-12 px-4 max-w-5xl mx-auto">
+<div class="flex justify-between items-center mb-8">
+<h3 class="section-title">工程案例</h3>
+<a class="nav-btn" href="cases.html">查看更多 →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="呼和浩特妇幼保健院" class="w-full h-48 object-cover" src="cases_images/016.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold text-gray-800">呼和浩特妇幼保健院</h4>
+<p class="text-sm text-gray-600 mt-1 border-t pt-2">外墙采用白麻+挤塑板保温一体化板，5000㎡</p>
+</div>
+</div>
+<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+<img alt="精品酒店项目" class="w-full h-48 object-cover" src="cases_images/017.jpg"/>
+<div class="p-4">
+<h4 class="text-lg font-semibold">山东泰安西站</h4>
+<p class="text-sm text-gray-600">高铁站外立面，白麻复合板，9000㎡</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 保留原有关于我们部分，更新样式 -->
+
+<section class="py-12 px-4 max-w-5xl mx-auto">
+<div class="flex justify-between items-center mb-8">
+<h3 class="section-title">新闻资讯</h3>
+<a class="nav-btn" href="news.html">查看更多 →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition duration-300">
+<h4 class="text-lg font-semibold mb-2">复合材料的好处</h4>
+<p class="text-sm text-gray-600">复合材料具有轻质高强、耐腐蚀等优点，适用于大型幕墙与外立面工程。</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition duration-300">
+<h4 class="text-lg font-semibold mb-2">复合材料的用途</h4>
+<p class="text-sm text-gray-600">广泛应用于高层建筑、机场、高铁站等，尤其适合节能装饰系统。</p>
+</div>
+</div>
+</section>
+<section class="py-12 px-4 max-w-5xl mx-auto" id="about">
+<h3 class="section-title mb-8">关于我们</h3>
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+<img alt="工厂展示" class="rounded-xl shadow transform transition duration-300 hover:shadow-xl" src="site_images/extra_45.jpg"/>
+<div class="bg-white p-6 rounded-lg shadow transform transition duration-300 hover:shadow-xl">
+<p class="text-gray-700 leading-relaxed mb-4">
+          福建泉州市闽晨石材有限公司成立于2016年，位于世界石都——福建南安水头镇，占地两万余平方米，是一家集铝蜂窝复合石材、节能保温石材、瓷砖复合板、透光复合石材等产品研发、加工、销售为一体的现代化石材企业。
+        </p>
+<p class="text-gray-700 leading-relaxed mb-4">
+</p>
+<p class="text-gray-700 leading-relaxed">
+          闽晨石材始终坚持创新 与匠心服务，致力于为客户提供优质的产品、合理的设计方案与完善的售后服务，与客户共筑石业新辉煌。
+        </p>
+</div>
+</div>
+</section>
+<section class="py-12 px-4 max-w-5xl mx-auto" id="contact-info">
+<h3 class="section-title mb-4">联系我们</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div>
+<p class="mb-2">电话：<span class="font-medium">13799863278</span></p>
+<p class="mb-2">地址：<span class="font-medium">福建省泉州市南安市水头镇苏内金雕工业园内</span></p>
+<p class="mb-2">邮箱：<span class="font-medium">1506743092@qq.com</span></p>
+<p class="mb-2">微信号：<span class="font-medium">cy2855457</span></p>
+<div class="mt-4" id="map-container" style="width:100%; height:260px; min-height:260px; border-radius:12px; box-shadow:0 2px 12px #a084ee;"></div>
+</div>
+<div class="flex justify-center items-center">
+<img alt="微信二维码" class="rounded-lg shadow max-w-[180px]" src="contact_us/001.jpg"/>
+</div>
+</div>
+</section>
+<footer class="bg-white py-6 border-t mt-8">
+<div class="text-center text-sm text-gray-500">
+      © 2025 福建泉州市闽晨石材有限公司 版权所有
+    </div>
+</footer>
+<script src="https://webapi.amap.com/maps?v=2.0&amp;key=a65f8af92654d3d4bbd61506b99d07b6"></script>
+<script>
+  window.onload = function () {
+    var map = new AMap.Map('map-container', {
+      center: [118.375299, 24.685764],
+      zoom: 17
+    });
+
+    var marker = new AMap.Marker({
+      position: [118.375299, 24.685764],
+      title: "闽晨石材"
+    });
+
+    map.add(marker);
+  }
+</script>
+</body>
+</html>
