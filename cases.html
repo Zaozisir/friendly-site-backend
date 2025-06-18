@@ -108,6 +108,9 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="caseList"></div>
 <!-- 案例大图弹窗 -->
 <div id="caseModal" style="display:none;"></div>
+<div class="row" id="imageContainer">
+    <!-- 图片将通过JavaScript动态加载 -->
+</div>
 <script>
     // 工程案例分类与图片数据
     const categories = [
@@ -118,34 +121,34 @@
     ];
     const cases = {
       hospital: [
-        { name: '呼和浩特妇幼保健院', images: ['cases_images/015.jpg','cases_images/016.jpg'] },
+        { name: '呼和浩特妇幼保健院', images: ['101/001.jpg','101/002.jpg'] },
       ],
       station: [
-        { name: '山东泰安西站', images: ['cases_images/017.jpg'] },
+        { name: '山东泰安西站', images: ['102/001.jpg'] },
       ],
       hotel: [
         { 
           name: '精品酒店项目', 
           images: [
-            'cases_images/001.jpg',
-            'cases_images/002.jpg',
-            'cases_images/003.jpg',
-            'cases_images/004.jpg',
-            'cases_images/005.jpg',
-            'cases_images/006.jpg',
-            'cases_images/007.jpg',
-            'cases_images/008.jpg'
+            '103/001.jpg',
+            '103/002.jpg',
+            '103/003.jpg',
+            '103/004.jpg',
+            '103/005.jpg',
+            '103/006.jpg',
+            '103/007.jpg',
+            '103/008.jpg'
           ] 
         },
       ],
       other: [
         { name: '内装精装案例', images: [
-          'cases_images/009.jpg',
-          'cases_images/010.jpg',
-          'cases_images/011.jpg',
-          'cases_images/012.jpg',
-          'cases_images/013.jpg',
-          'cases_images/014.jpg'
+          '104/001.jpg',
+          '104/002.jpg',
+          '104/003.jpg',
+          '104/004.jpg',
+          '104/005.jpg',
+          '104/006.jpg'
         ] },
       ],
     };
@@ -166,15 +169,25 @@
     const list = document.getElementById('caseList');
     function renderCases() {
       list.innerHTML = '';
-      (cases[selectedCat]||[]).forEach(c => {
-        c.images.forEach(img => {
-          const card = document.createElement('div');
-          card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
-          card.innerHTML = `<img src="${img}" class="w-full h-48 object-cover" alt="${c.name}"><div class="p-4"><h4 class="text-lg font-semibold text-gray-800">${c.name}</h4></div>`;
-          card.onclick = ()=>showBigImg(img);
-          list.appendChild(card);
+      fetch(`admin/get_images.php?category=cases&subCategory=${selectedCat}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            data.images.forEach(image => {
+              const card = document.createElement('div');
+              card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
+              card.innerHTML = `<img src="${image.path}" class="w-full h-48 object-cover" alt="${categories.find(c => c.key === selectedCat).name}"><div class="p-4"><h4 class="text-lg font-semibold text-gray-800">${categories.find(c => c.key === selectedCat).name}</h4></div>`;
+              card.onclick = () => showBigImg(image.path);
+              list.appendChild(card);
+            });
+          } else {
+            list.innerHTML = '<div class="col-span-full text-center text-gray-500">暂无图片</div>';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          list.innerHTML = '<div class="col-span-full text-center text-gray-500">加载失败，请稍后重试</div>';
         });
-      });
     }
     // 案例大图弹窗
     const modal = document.getElementById('caseModal');
@@ -184,7 +197,7 @@
     }
     // 初始化
     renderNav(); renderCases();
-    </script>
+</script>
 </div>
 <footer class="bg-white py-6 border-t mt-8">
 <div class="text-center text-sm text-gray-500">

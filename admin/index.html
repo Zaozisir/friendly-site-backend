@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闽晨石材 - 后台管理系统</title>
+    <link href="../css/tailwind.min.css" rel="stylesheet"/>
+    <style>
+        .sidebar {
+            background: linear-gradient(180deg, #4f8cff 0%, #a084ee 100%);
+        }
+        .content-area {
+            background: #f8fafc;
+        }
+        .product-card {
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(80,120,255,0.08);
+            border-radius: 1rem;
+            overflow: hidden;
+            height: 100%;
+        }
+        .product-card:hover {
+            box-shadow: 0 8px 32px rgba(80,120,255,0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .aspect-w-4 {
+            position: relative;
+            padding-bottom: 75%;
+        }
+        .aspect-w-4 > * {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            object-fit: cover;
+        }
+        .product-card img, .product-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- 侧边栏 -->
+        <div class="sidebar w-64 text-white p-4">
+            <h1 class="text-2xl font-bold mb-8">闽晨石材管理系统</h1>
+            <nav class="space-y-2">
+                <button onclick="showCategory('products')" class="w-full text-left px-4 py-2 rounded hover:bg-white hover:bg-opacity-20">
+                    产品中心管理
+                </button>
+                <button onclick="showCategory('finished')" class="w-full text-left px-4 py-2 rounded hover:bg-white hover:bg-opacity-20">
+                    成品展示管理
+                </button>
+                <button onclick="showCategory('cases')" class="w-full text-left px-4 py-2 rounded hover:bg-white hover:bg-opacity-20">
+                    工程案例管理
+                </button>
+                <button onclick="showCategory('news')" class="w-full text-left px-4 py-2 rounded hover:bg-white hover:bg-opacity-20">
+                    新闻资讯管理
+                </button>
+                <button onclick="logout()" class="w-full text-left px-4 py-2 rounded hover:bg-white hover:bg-opacity-20 mt-8">
+                    退出登录
+                </button>
+            </nav>
+        </div>
+
+        <!-- 主要内容区域 -->
+        <div class="content-area flex-1 p-8">
+            <div id="products" class="category-section">
+                <h2 class="text-2xl font-bold mb-4">产品中心管理</h2>
+                <div class="mb-4">
+                    <select id="productCategory" class="border rounded px-3 py-2">
+                        <option value="aluhoney">铝蜂窝石材复合板</option>
+                        <option value="shimiaofh">石材饰面保温复合板</option>
+                        <option value="fangshi">仿石饰面保温复合板</option>
+                        <option value="huagangyan">花岗岩</option>
+                        <option value="xian">线条</option>
+                        <option value="shuidao">水刀拼花</option>
+                        <option value="beijingqiang">背景墙</option>
+                        <option value="daban">大板类</option>
+                        <option value="video">产品视频</option>
+                    </select>
+                    <input type="file" id="productImage" accept="image/*,video/*" multiple class="ml-4">
+                    <button onclick="uploadImages('products')" class="bg-blue-500 text-white px-4 py-2 rounded ml-4">
+                        上传图片/视频
+                    </button>
+                </div>
+                <div id="productImages" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- 图片预览区域 -->
+                </div>
+            </div>
+
+            <div id="finished" class="category-section hidden">
+                <h2 class="text-2xl font-bold mb-4">成品展示管理</h2>
+                <div class="mb-4">
+                    <input type="file" id="finishedImage" accept="image/*" multiple class="border rounded px-3 py-2">
+                    <button onclick="uploadImages('finished')" class="bg-blue-500 text-white px-4 py-2 rounded ml-4">
+                        上传图片
+                    </button>
+                </div>
+                <div id="finishedImages" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- 图片预览区域 -->
+                </div>
+            </div>
+
+            <div id="cases" class="category-section hidden">
+                <h2 class="text-2xl font-bold mb-4">工程案例管理</h2>
+                <div class="mb-4">
+                    <select id="caseCategory" class="border rounded px-3 py-2">
+                        <option value="hospital">呼和浩特妇幼保健院</option>
+                        <option value="station">山东泰安西站</option>
+                        <option value="hotel">精品酒店项目</option>
+                        <option value="other">内装精装案例</option>
+                    </select>
+                    <input type="file" id="caseImage" accept="image/*" multiple class="border rounded px-3 py-2 ml-4">
+                    <button onclick="uploadImages('cases')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded ml-4 cursor-pointer">
+                        上传图片
+                    </button>
+                </div>
+                <div id="caseImages" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- 图片预览区域 -->
+                </div>
+            </div>
+
+            <!-- 新增新闻资讯管理部分 -->
+            <div id="news" class="category-section hidden">
+                <h2 class="text-2xl font-bold mb-4">新闻资讯管理</h2>
+                <div class="mb-8">
+                    <form id="newsForm" class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="newsTitle">
+                                新闻标题
+                            </label>
+                            <input type="text" id="newsTitle" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="newsContent">
+                                新闻内容
+                            </label>
+                            <textarea id="newsContent" rows="6" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                发布新闻
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold mb-4">已发布的新闻</h3>
+                    <div id="newsList" class="space-y-4">
+                        <!-- 新闻列表将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 检查登录状态
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        let currentCategory = 'products';
+        let editingNewsId = null;
+
+        // 显示分类
+        function showCategory(category) {
+            console.log('显示分类:', category);
+            // 隐藏所有分类
+            document.querySelectorAll('.category-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // 显示选中的分类
+            const section = document.getElementById(category);
+            if (section) {
+                section.classList.remove('hidden');
+                currentCategory = category;
+                
+                // 重置文件输入框
+                const fileInput = document.getElementById(category === 'products' ? 'productImage' : `${category}Image`);
+                if (fileInput) {
+                    fileInput.value = '';
+                }
+                
+                // 加载当前分类的图片
+                if (category === 'products') {
+                    const categorySelect = document.getElementById('productCategory');
+                    if (categorySelect) {
+                        loadImages(category, categorySelect.value);
+                    }
+                } else if (category === 'cases') {
+                    const categorySelect = document.getElementById('caseCategory');
+                    if (categorySelect) {
+                        loadImages(category, categorySelect.value);
+                    }
+                } else if (category === 'news') {
+                    loadNews();
+                } else {
+                    // 其他分类（如成品展示）直接加载图片
+                    loadImages(category);
+                }
+            } else {
+                console.error('找不到分类section:', category);
+            }
+        }
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+        }
+
+        // 上传图片
+        async function uploadImages(category) {
+            console.log('开始上传图片，分类：', category);
+            let fileInput;
+            let subCategory = '';
+            
+            if (category === 'products') {
+                fileInput = document.getElementById('productImage');
+                const categorySelect = document.getElementById('productCategory');
+                subCategory = categorySelect ? categorySelect.value : '';
+            } else if (category === 'cases') {
+                fileInput = document.getElementById('caseImage');
+                const categorySelect = document.getElementById('caseCategory');
+                subCategory = categorySelect ? categorySelect.value : '';
+            } else {
+                fileInput = document.getElementById(`${category}Image`);
+            }
+            
+            if (!fileInput) {
+                console.error('找不到文件输入框元素:', category);
+                alert('系统错误：找不到文件输入框');
+                return;
+            }
+
+            const files = fileInput.files;
+            console.log('文件数量：', files.length);
+            console.log('子分类：', subCategory);
+
+            if (files.length === 0) {
+                alert('请选择要上传的文件');
+                return;
+            }
+
+            // 检查子分类（仅对需要分类的功能进行检查）
+            if ((category === 'products' || category === 'cases') && !subCategory) {
+                alert('请选择分类');
+                return;
+            }
+
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images[]', files[i]);
+            }
+            formData.append('category', category);
+            if (subCategory) {
+                formData.append('subCategory', subCategory);
+            }
+
+            try {
+                console.log('开始上传文件:', category, subCategory);
+                const response = await fetch('upload.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                console.log('上传结果:', result);
+                
+                if (result.success) {
+                    alert('上传成功');
+                    fileInput.value = ''; // 清空文件输入
+                    // 重新加载当前分类的图片
+                    loadImages(category, subCategory);
+                } else {
+                    alert('上传失败：' + result.message);
+                }
+            } catch (error) {
+                console.error('上传错误:', error);
+                alert('上传失败：' + error.message);
+            }
+        }
+
+        // 加载图片
+        async function loadImages(category, subCategory = '') {
+            try {
+                // 如果是新闻模块，不需要加载图片
+                if (category === 'news') {
+                    return;
+                }
+
+                // 如果没有传入subCategory，则从select元素获取
+                if (!subCategory && category === 'products') {
+                    const categorySelect = document.getElementById('productCategory');
+                    subCategory = categorySelect ? categorySelect.value : '';
+                } else if (!subCategory && category === 'cases') {
+                    const categorySelect = document.getElementById('caseCategory');
+                    subCategory = categorySelect ? categorySelect.value : '';
+                }
+
+                console.log('加载图片请求参数:', { category, subCategory });
+                const response = await fetch(`get_images.php?category=${category}${subCategory ? '&subCategory=' + subCategory : ''}`);
+                const data = await response.json();
+                console.log('加载图片响应数据:', data);
+                
+                if (data.success) {
+                    // 修复容器ID
+                    const containerId = category === 'products' ? 'productImages' : 
+                                      category === 'cases' ? 'caseImages' : 
+                                      `${category}Images`;
+                    console.log('查找容器元素:', containerId);
+                    const container = document.getElementById(containerId);
+                    
+                    if (!container) {
+                        console.error('找不到容器元素:', containerId);
+                        return;
+                    }
+                    
+                    container.innerHTML = '';
+                    
+                    if (data.images && data.images.length > 0) {
+                        data.images.forEach(image => {
+                            console.log('处理图片:', image);
+                            const card = document.createElement('div');
+                            card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
+                            
+                            if (image.path.endsWith('.mp4')) {
+                                card.innerHTML = `
+                                    <div class="aspect-w-4">
+                                        <video src="../${image.path}" controls></video>
+                                    </div>
+                                    <div class="p-4">
+                                        <button onclick="deleteImage('${image.path}')" class="text-red-500 hover:text-red-700">
+                                            删除
+                                        </button>
+                                    </div>
+                                `;
+                            } else {
+                                const imgPath = image.path.startsWith('../') ? image.path : '../' + image.path;
+                                card.innerHTML = `
+                                    <div class="aspect-w-4">
+                                        <img src="${imgPath}" alt="预览图" class="w-full h-48 object-cover">
+                                    </div>
+                                    <div class="p-4">
+                                        <button onclick="deleteImage('${image.path}')" class="text-red-500 hover:text-red-700">
+                                            删除
+                                        </button>
+                                    </div>
+                                `;
+                            }
+                            container.appendChild(card);
+                        });
+                    } else {
+                        container.innerHTML = '<div class="col-span-full text-center text-gray-500">暂无图片</div>';
+                    }
+                } else {
+                    console.error('加载图片失败:', data.message);
+                    const containerId = category === 'products' ? 'productImages' : `${category}Images`;
+                    const container = document.getElementById(containerId);
+                    if (container) {
+                        container.innerHTML = '<div class="col-span-full text-center text-gray-500">加载失败，请稍后重试</div>';
+                    }
+                }
+            } catch (error) {
+                console.error('加载图片错误:', error);
+                const containerId = category === 'products' ? 'productImages' : `${category}Images`;
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.innerHTML = '<div class="col-span-full text-center text-gray-500">加载失败，请稍后重试</div>';
+                }
+            }
+        }
+
+        // 删除图片
+        async function deleteImage(imagePath) {
+            if (!confirm('确定要删除这张图片吗？')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('delete_image.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ path: imagePath })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('删除成功');
+                    // 重新加载当前分类的图片
+                    if (currentCategory === 'products') {
+                        const categorySelect = document.getElementById('productCategory');
+                        loadImages(currentCategory, categorySelect.value);
+                    } else if (currentCategory === 'cases') {
+                        const categorySelect = document.getElementById('caseCategory');
+                        loadImages(currentCategory, categorySelect.value);
+                    } else {
+                        loadImages(currentCategory);
+                    }
+                } else {
+                    alert('删除失败：' + result.message);
+                }
+            } catch (error) {
+                console.error('删除图片错误:', error);
+                alert('删除失败，请稍后重试');
+            }
+        }
+
+        // 监听分类选择变化
+        document.addEventListener('DOMContentLoaded', function() {
+            const productCategory = document.getElementById('productCategory');
+            if (productCategory) {
+                productCategory.addEventListener('change', function() {
+                    console.log('产品分类改变:', this.value);
+                    loadImages('products', this.value);
+                });
+            }
+
+            const caseCategory = document.getElementById('caseCategory');
+            if (caseCategory) {
+                caseCategory.addEventListener('change', function() {
+                    console.log('案例分类改变:', this.value);
+                    loadImages('cases', this.value);
+                });
+            }
+
+            // 页面加载时显示第一个分类
+            showCategory('products');
+        });
+
+        // 新闻管理相关函数
+        async function loadNews() {
+            try {
+                const response = await fetch('get_news.php');
+                if (!response.ok) {
+                    throw new Error('加载新闻失败');
+                }
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.message || '加载新闻失败');
+                }
+
+                const newsList = document.getElementById('newsList');
+                newsList.innerHTML = '';
+
+                data.data.forEach(news => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'bg-white p-4 rounded-lg shadow';
+                    newsItem.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">${news.title}</h4>
+                                <p class="text-gray-600 mb-2">${news.content.substring(0, 100)}${news.content.length > 100 ? '...' : ''}</p>
+                                <p class="text-sm text-gray-500">发布时间：${new Date(news.created_at).toLocaleString()}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="editNews(${news.id})" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                                    编辑
+                                </button>
+                                <button onclick="deleteNews(${news.id})" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                    删除
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    newsList.appendChild(newsItem);
+                });
+            } catch (error) {
+                console.error('加载新闻失败:', error);
+                alert('加载新闻失败，请稍后重试');
+            }
+        }
+
+        // 编辑新闻
+        async function editNews(id) {
+            try {
+                const response = await fetch('get_news.php');
+                if (!response.ok) {
+                    throw new Error('加载新闻失败');
+                }
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.message || '加载新闻失败');
+                }
+
+                const news = data.data.find(n => n.id === id);
+                if (!news) {
+                    throw new Error('未找到新闻');
+                }
+
+                editingNewsId = id;
+                document.getElementById('newsTitle').value = news.title;
+                document.getElementById('newsContent').value = news.content;
+                document.querySelector('#newsForm button[type="submit"]').textContent = '保存修改';
+            } catch (error) {
+                console.error('加载新闻详情失败:', error);
+                alert('加载新闻详情失败，请稍后重试');
+            }
+        }
+
+        // 提交新闻表单
+        document.getElementById('newsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('newsTitle').value;
+            const content = document.getElementById('newsContent').value;
+            
+            if (!title || !content) {
+                alert('请填写完整的新闻信息');
+                return;
+            }
+
+            try {
+                const response = await fetch('save_news.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: editingNewsId,
+                        title: title,
+                        content: content
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert(editingNewsId ? '新闻修改成功' : '新闻发布成功');
+                    // 重置表单
+                    document.getElementById('newsForm').reset();
+                    editingNewsId = null;
+                    document.querySelector('#newsForm button[type="submit"]').textContent = '发布新闻';
+                    // 重新加载新闻列表
+                    loadNews();
+                } else {
+                    throw new Error(data.message || '操作失败');
+                }
+            } catch (error) {
+                console.error('保存新闻失败:', error);
+                alert('保存新闻失败，请稍后重试');
+            }
+        });
+
+        // 删除新闻
+        async function deleteNews(id) {
+            if (!confirm('确定要删除这条新闻吗？')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('delete_news.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: id })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('新闻删除成功');
+                    loadNews();
+                } else {
+                    throw new Error(data.message || '删除失败');
+                }
+            } catch (error) {
+                console.error('删除新闻失败:', error);
+                alert('删除新闻失败，请稍后重试');
+            }
+        }
+    </script>
+</body>
+</html> 

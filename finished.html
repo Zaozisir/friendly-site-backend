@@ -51,7 +51,25 @@
       .section-title { font-size: 1.1rem; }
       .nav-btn { font-size: 0.92rem; padding: 0.38rem 0.7rem; }
     }
-  </style>
+    .product-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+    .product-image:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 32px rgba(80,120,255,0.18);
+    }
+    .product-item {
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+</style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 <header class="bg-white shadow sticky top-0 z-50">
@@ -76,40 +94,57 @@
 <div class="flex justify-between items-center mb-8">
 <h2 class="section-title">成品展示</h2>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
-<img alt="成品展示1" class="w-full h-64 object-cover" onclick="showBigImg('finished_images/001.jpg')" src="finished_images/001.jpg"/>
-<div class="p-4">
-<h4 class="text-lg font-semibold text-gray-800">成品照片1</h4>
-</div>
-</div>
-<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
-<img alt="成品展示2" class="w-full h-64 object-cover" onclick="showBigImg('finished_images/002.jpg')" src="finished_images/002.jpg"/>
-<div class="p-4">
-<h4 class="text-lg font-semibold text-gray-800">成品照片2</h4>
-</div>
-</div>
-<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
-<img alt="成品展示3" class="w-full h-64 object-cover" onclick="showBigImg('site_images/extra_47.jpg')" src="site_images/extra_47.jpg"/>
-<div class="p-4">
-<h4 class="text-lg font-semibold text-gray-800">成品照片3</h4>
-</div>
-</div>
-<div class="bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card">
-<img alt="成品展示3" class="w-full h-64 object-cover" onclick="showBigImg('site_images/extra_47.jpg')" src="site_images/extra_47.jpg"/>
-<div class="p-4">
-<h4 class="text-lg font-semibold text-gray-800">成品照片3</h4>
-</div>
-</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="imageContainer">
+    <!-- 图片将通过JavaScript动态加载 -->
 </div>
 <div id="productModal" style="display:none;"></div>
 <script>
-      const modal = document.getElementById('productModal');
-      function showBigImg(img) {
+    const modal = document.getElementById('productModal');
+    function showBigImg(img) {
         modal.style.display = 'flex';
         modal.innerHTML = `<div class='modal-bg' style='z-index:2000;' onclick='modal.style.display="none"'><img src='${img}' style='max-width:90vw;max-height:90vh;display:block;margin:auto;border-radius:1rem;box-shadow:0 8px 32px #888;'></div>`;
-      }
-    </script>
+    }
+
+    // 加载图片
+    function loadImages() {
+        fetch('/admin/get_images.php?category=finished')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const container = document.getElementById('imageContainer');
+                    container.innerHTML = ''; // 清空现有内容
+                    
+                    if (data.images && data.images.length > 0) {
+                        data.images.forEach(image => {
+                            const div = document.createElement('div');
+                            div.className = 'bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1';
+                            
+                            const img = document.createElement('img');
+                            img.src = image.path;
+                            img.alt = '成品展示';
+                            img.className = 'w-full h-64 object-cover cursor-pointer';
+                            img.onclick = function() {
+                                showBigImg(image.path);
+                            };
+                            
+                            div.appendChild(img);
+                            container.appendChild(div);
+                        });
+                    } else {
+                        container.innerHTML = '<div class="col-span-full text-center text-gray-500">暂无图片</div>';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const container = document.getElementById('imageContainer');
+                container.innerHTML = '<div class="col-span-full text-center text-red-500">加载图片失败</div>';
+            });
+    }
+
+    // 页面加载时加载图片
+    document.addEventListener('DOMContentLoaded', loadImages);
+</script>
 </div>
 <footer class="bg-white py-6 border-t mt-8">
 <div class="text-center text-sm text-gray-500">

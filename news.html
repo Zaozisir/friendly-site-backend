@@ -138,30 +138,17 @@
       <!-- 左侧导航栏 -->
       <aside class="w-full md:w-64">
         <div class="bg-white p-4 rounded-lg shadow">
-          <h3 class="text-xl font-bold mb-4 text-blue-600">文章分类</h3>
-          <div class="space-y-2">
-            <div class="nav-item active" onclick="showArticle('art1')">复合材料的好处</div>
-            <div class="nav-item" onclick="showArticle('art2')">复合材料的用途</div>
+          <h3 class="text-xl font-bold mb-4 text-blue-600">文章列表</h3>
+          <div id="newsList" class="space-y-2">
+            <!-- 新闻列表将通过JavaScript动态加载 -->
           </div>
         </div>
       </aside>
 
       <!-- 右侧内容区 -->
       <main class="flex-1">
-        <div id="art1" class="article-content active">
-          <h2 class="text-2xl font-bold mb-4 text-blue-600">复合材料的好处</h2>
-          <div class="prose max-w-none">
-            <p class="mb-4">复合材料具有轻质高强、耐腐蚀、施工便捷等优点，尤其适用于大型幕墙、外立面装饰和保温节能工程。</p>
-            <p>相较于传统实心石材，复合板不仅能降低运输和安装成本，还能有效提升结构安全性。</p>
-          </div>
-        </div>
-
-        <div id="art2" class="article-content">
-          <h2 class="text-2xl font-bold mb-4 text-blue-600">复合材料的用途</h2>
-          <div class="prose max-w-none">
-            <p class="mb-4">复合材料广泛应用于建筑外墙、地面铺装、室内背景墙及幕墙系统，特别适合高层建筑的轻质装饰需求。</p>
-            <p>同时，它也被用于机场、高铁站、商业综合体等公共建筑的外立面节能系统。</p>
-          </div>
+        <div id="newsContent">
+          <!-- 新闻内容将通过JavaScript动态加载 -->
         </div>
       </main>
     </div>
@@ -174,21 +161,76 @@
   </footer>
 
   <script>
-    function showArticle(articleId) {
-      // 隐藏所有文章内容
-      document.querySelectorAll('.article-content').forEach(el => {
-        el.classList.remove('active');
-      });
-      
-      // 显示选中的文章
-      document.getElementById(articleId).classList.add('active');
-      
-      // 更新导航项状态
-      document.querySelectorAll('.nav-item').forEach(el => {
-        el.classList.remove('active');
-      });
-      event.target.classList.add('active');
+    // 加载新闻列表
+    async function loadNews() {
+      try {
+        const response = await fetch('admin/get_news.php');
+        if (!response.ok) {
+          throw new Error('加载新闻失败');
+        }
+        const data = await response.json();
+        if (!data.success) {
+          throw new Error(data.message || '加载新闻失败');
+        }
+
+        const newsList = document.getElementById('newsList');
+        const newsContent = document.getElementById('newsContent');
+        
+        // 清空现有内容
+        newsList.innerHTML = '';
+        newsContent.innerHTML = '';
+
+        // 添加新闻列表
+        data.data.forEach((news, index) => {
+          // 添加导航项
+          const navItem = document.createElement('div');
+          navItem.className = `nav-item ${index === 0 ? 'active' : ''}`;
+          navItem.onclick = () => showArticle(news.id);
+          navItem.textContent = news.title;
+          newsList.appendChild(navItem);
+
+          // 添加文章内容
+          const article = document.createElement('div');
+          article.id = `art${news.id}`;
+          article.className = `article-content ${index === 0 ? 'active' : ''}`;
+          article.innerHTML = `
+            <h2 class="text-2xl font-bold mb-4 text-blue-600">${news.title}</h2>
+            <div class="prose max-w-none">
+              ${news.content.replace(/\n/g, '<br>')}
+            </div>
+            <div class="text-sm text-gray-500 mt-4">
+              发布时间：${new Date(news.created_at).toLocaleString()}
+            </div>
+          `;
+          newsContent.appendChild(article);
+        });
+      } catch (error) {
+        console.error('加载新闻失败:', error);
+        alert('加载新闻失败，请稍后重试');
+      }
     }
+
+    // 显示指定文章
+    function showArticle(articleId) {
+      // 更新导航项状态
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.onclick.toString().includes(articleId)) {
+          item.classList.add('active');
+        }
+      });
+
+      // 更新文章显示状态
+      document.querySelectorAll('.article-content').forEach(article => {
+        article.classList.remove('active');
+      });
+      document.getElementById(`art${articleId}`).classList.add('active');
+    }
+
+    // 页面加载完成后加载新闻
+    document.addEventListener('DOMContentLoaded', loadNews);
   </script>
 </body>
 </html>

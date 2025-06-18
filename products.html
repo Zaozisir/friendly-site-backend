@@ -128,65 +128,7 @@
       { key: 'daban', name: '大板类', icon: '📏' },
       { key: 'video', name: '产品视频', icon: '🎬' },
     ];
-    // 示例产品数据（每类可补充更多）
-    const products = {
-      aluhoney: [
-        { name: '1', desc: '铝蜂窝石材复合板', images: ['001/01.jpg'] },
-        { name: '2', desc: '铝蜂窝石材复合板', images: ['001/02.jpg'] },
-        { name: '3', desc: '铝蜂窝石材复合板', images: ['001/03.jpg'] },
-        { name: '4', desc: '铝蜂窝石材复合板', images: ['001/04.jpg'] },
-        { name: '5', desc: '铝蜂窝石材复合板', images: ['001/05.jpg'] },
-        { name: '6', desc: '铝蜂窝石材复合板', images: ['001/06.jpg'] },
-        { name: '7', desc: '铝蜂窝石材复合板', images: ['001/07.jpg'] },
-        { name: '8', desc: '铝蜂窝石材复合板', images: ['001/08.jpg'] },
-      ],
-      shimiaofh: [
-        { name: '1', desc: '石材饰面保温复合板', images: ['002/01.jpg'] },
-        { name: '2', desc: '石材饰面保温复合板', images: ['002/02.jpg'] },
-      ],
-      fangshi: [
-        { name: '1', desc: '仿石饰面保温复合板', images: ['003/01.jpg'] },
-        { name: '2', desc: '仿石饰面保温复合板', images: ['003/02.jpg'] },
-        { name: '3', desc: '仿石饰面保温复合板', images: ['003/03.jpg'] },
-        { name: '4', desc: '仿石饰面保温复合板', images: ['003/04.jpg'] },
-        { name: '5', desc: '仿石饰面保温复合板', images: ['003/05.jpg'] },
-        { name: '6', desc: '仿石饰面保温复合板', images: ['003/06.jpg'] },
-      ],
-      huagangyan: [
-        { name: '山东白麻', desc: '花岗岩', images: ['004/01.jpg'] },
-        { name: '海南G654', desc: '花岗岩', images: ['004/02.jpg'] },
-        { name: '章丘黑', desc: '花岗岩', images: ['004/03.jpg'] },
-      ],
-      xian: [
-        { name: '1', desc: '线条', images: ['005/01.png'] },
-        { name: '2', desc: '线条', images: ['005/02.png'] },
-        { name: '3', desc: '线条', images: ['005/03.png'] },
-        { name: '4', desc: '线条', images: ['005/04.png'] },
-      ],
-      shuidao: [
-        { name: '1', desc: '水刀拼花', images: ['006/01.png'] },
-        { name: '2', desc: '水刀拼花', images: ['006/02.png'] },
-        { name: '3', desc: '水刀拼花', images: ['006/03.png'] },
-        { name: '4', desc: '水刀拼花', images: ['006/04.png'] },
-        { name: '5', desc: '水刀拼花', images: ['006/05.png'] },
-        { name: '6', desc: '水刀拼花', images: ['006/06.png'] },
-        { name: '7', desc: '水刀拼花', images: ['006/07.png'] },
-        { name: '8', desc: '水刀拼花', images: ['006/08.png'] },
-      ],
-      beijingqiang: [
-        { name: '1', desc: '背景墙', images: ['007/01.png'] },
-        { name: '2', desc: '背景墙', images: ['007/02.png'] },
-      ],
-      daban: [
-        { name: '爵士白', desc: '高品质大板石材', images: ['site_images/extra_44.jpg'] },
-        { name: '雅士白', desc: '光泽度高，纹理细腻', images: ['site_images/extra_46.jpg'] },
-        { name: '鱼肚灰', desc: '经典装饰用材', images: ['site_images/extra_47.jpg'] },
-      ],
-      video: [
-        { name: '意大利鱼肚白复合瓷砖豪宅地面', desc: '产品生产工艺展示', images: [], video: 'test_video/video1.mp4' },
-        { name: '产品展示视频 2', desc: '产品应用案例展示', images: [], video: 'testvideo/video2.mp4' },
-      ],
-    };
+
     // 渲染分类导航
     const nav = document.getElementById('categoryNav');
     let selectedCat = categories[0].key;
@@ -196,45 +138,132 @@
         const btn = document.createElement('button');
         btn.className = 'category-btn' + (selectedCat===cat.key?' selected':'');
         btn.innerHTML = `<span class='cat-icon'>${cat.icon||''}</span>${cat.name}`;
-        btn.onclick = () => { selectedCat=cat.key; renderNav(); renderProducts(); };
+        btn.onclick = () => { selectedCat=cat.key; renderNav(); loadProducts(); };
         nav.appendChild(btn);
       });
     }
-    // 渲染产品列表
+
+    // 加载产品列表
     const list = document.getElementById('productList');
-    function renderProducts() {
+    function loadProducts() {
       list.innerHTML = '';
-      if(selectedCat==="video") {
-        (products.video||[]).forEach((p,idx) => {
-          const card = document.createElement('div');
-          card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
-          card.innerHTML = `<video class='w-full aspect-video' controls poster='site_images/video_cover${idx+1}.jpg'><source src='${p.video}' type='video/mp4'>您的浏览器不支持视频播放。</video><div class='p-4'><h4 class='text-lg font-semibold text-gray-800'>${p.name}</h4><p class='text-sm text-gray-600 mt-1 border-t pt-2'>${p.desc}</p></div>`;
-          list.appendChild(card);
-        });
+      if(selectedCat === "video") {
+        // 从后台获取视频列表
+        fetch(`admin/get_images.php?category=products&subCategory=video`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success && data.images.length > 0) {
+              data.images.forEach((video, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
+                // 移除路径中的 '../' 前缀
+                const videoPath = video.path.replace('../', '');
+                card.innerHTML = `
+                  <video class='w-full aspect-video' controls poster='site_images/video_cover${index+1}.jpg'>
+                    <source src='${videoPath}' type='video/mp4'>
+                    您的浏览器不支持视频播放。
+                  </video>
+                  <div class='p-4'>
+                    <h4 class='text-lg font-semibold text-gray-800'>${video.title || '产品视频'}</h4>
+                    <p class='text-sm text-gray-600 mt-1 border-t pt-2'>${video.description || '产品展示视频'}</p>
+                  </div>`;
+                list.appendChild(card);
+              });
+            } else {
+              list.innerHTML = '<div class="col-span-full text-center text-gray-500">暂无视频</div>';
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            list.innerHTML = '<div class="col-span-full text-center text-gray-500">加载失败，请稍后重试</div>';
+          });
         return;
       }
-      (products[selectedCat]||[]).forEach((p,idx) => {
-        const card = document.createElement('div');
-        card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
-        card.innerHTML = `<img src=\"${p.images[0]}\" class=\"w-full h-48 object-cover\" alt=\"${p.name}\"><div class=\"p-4\"><h4 class=\"text-lg font-semibold text-gray-800\">${p.name}</h4></div>`;
-        card.onclick = ()=>showBigImg(p.images[0]);
-        list.appendChild(card);
-      });
+
+      // 从后台获取产品图片
+      fetch(`admin/get_images.php?category=products&subCategory=${selectedCat}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            data.images.forEach((image, index) => {
+              const card = document.createElement('div');
+              card.className = 'bg-white shadow rounded-lg overflow-hidden transform transition duration-300 product-card';
+              // 移除路径中的 '../' 前缀
+              const imagePath = image.path.replace('../', '');
+              card.innerHTML = `
+                <img src="${imagePath}" class="w-full h-48 object-cover" alt="${categories.find(c => c.key === selectedCat).name}">
+                <div class="p-4">
+                  <h4 class="text-lg font-semibold text-gray-800">${categories.find(c => c.key === selectedCat).name}</h4>
+                </div>`;
+              card.onclick = () => showBigImg(imagePath);
+              list.appendChild(card);
+            });
+          } else {
+            list.innerHTML = '<div class="col-span-full text-center text-gray-500">暂无图片</div>';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          list.innerHTML = '<div class="col-span-full text-center text-gray-500">加载失败，请稍后重试</div>';
+        });
     }
+
     // 产品详情弹窗
     const modal = document.getElementById('productModal');
     function showBigImg(img) {
       modal.style.display = 'flex';
       modal.innerHTML = `<div class='modal-bg' style='z-index:2000;' onclick='modal.style.display="none"'><img src='${img}' style='max-width:90vw;max-height:90vh;display:block;margin:auto;border-radius:1rem;box-shadow:0 8px 32px #888;'></div>`;
     }
+
     // 初始化
-    renderNav(); renderProducts();
+    renderNav();
+    loadProducts();
     </script>
+<div class="row" id="imageContainer">
+    <!-- 图片将通过JavaScript动态加载 -->
+</div>
 </div>
 <footer class="bg-white py-6 border-t mt-8">
 <div class="text-center text-sm text-gray-500">
       © 2025 福建泉州市闽晨石材有限公司 版权所有
     </div>
 </footer>
+<script>
+    // 加载图片
+    function loadImages() {
+        fetch('/admin/get_images.php?category=products')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const container = document.getElementById('imageContainer');
+                    // 不再清空现有内容
+                    
+                    data.images.forEach(image => {
+                        // 检查图片是否已经存在
+                        const existingImage = document.querySelector(`img[src="${image.path}"]`);
+                        if (!existingImage) {
+                            const col = document.createElement('div');
+                            col.className = 'col-md-4 product-item';
+                            
+                            const img = document.createElement('img');
+                            img.src = image.path;
+                            img.alt = '产品展示';
+                            img.className = 'product-image';
+                            img.onclick = function() {
+                                showBigImg(image.path);
+                            };
+                            
+                            col.appendChild(img);
+                            container.appendChild(col);
+                        }
+                    });
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 页面加载时加载图片
+    document.addEventListener('DOMContentLoaded', loadImages);
+</script>
 </body>
 </html>

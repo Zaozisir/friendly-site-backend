@@ -46,6 +46,26 @@
       .section-title { font-size: 1.1rem; }
       .nav-btn { font-size: 0.92rem; padding: 0.38rem 0.7rem; }
     }
+    /* 管理系统入口按钮样式 */
+    .admin-entry {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      background: rgba(79, 140, 255, 0.1);
+      color: rgba(79, 140, 255, 0.5);
+      border: 1px solid rgba(79, 140, 255, 0.2);
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .admin-entry:hover {
+      background: rgba(79, 140, 255, 0.2);
+      color: rgba(79, 140, 255, 0.8);
+      border-color: rgba(79, 140, 255, 0.4);
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -87,6 +107,7 @@
       © 2025 福建泉州市闽晨石材有限公司 版权所有
     </div>
 </footer>
+<div class="admin-entry" onclick="window.location.href='admin/index.html'">管理系统</div>
 <script src="https://webapi.amap.com/maps?v=2.0&amp;key=a65f8af92654d3d4bbd61506b99d07b6"></script>
 <script>
   window.onload = function () {
